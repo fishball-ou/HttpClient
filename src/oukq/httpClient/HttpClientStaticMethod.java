@@ -39,7 +39,7 @@ public class HttpClientStaticMethod {
 				HttpEntity httpEntity = httpResponse.getEntity();
 				//toString
 //				html = EntityUtils.toString(httpEntity);
-				BufferedReader reader = new BufferedReader(new InputStreamReader(httpEntity.getContent(),"GB18030"));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(httpEntity.getContent(),"gbk"));
 				String lineMessage;
 				while((lineMessage = reader.readLine())!=null){
 					html1.append(lineMessage);
