@@ -1,7 +1,12 @@
 package oukq.httpClient;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
+import oukq.init.StaticProperty;
+import oukq.jsoup.adapter.For1024ImgUriAdapter;
 import oukq.jsoup.adapter.For163ImgUriAdatper;
 import oukq.jsoup.adapter.ImgUriAdapter;
 import oukq.tools.FileUtils;
@@ -15,15 +20,16 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String path = "http://www.163.com";
-		String fpath = "D://163(2).txt";
+		String path = StaticProperty.PATH_FID_16+1;
+		String fpath = "D://1024.txt";
+		ExecutorService pool = Executors.newFixedThreadPool(10);
 		String content = HttpClientStaticMethod.getHtmlByUrl(path);
 		FileUtils.outToNewFile(fpath, content);
-		ImgUriAdapter a = new For163ImgUriAdatper();
-		List<String> uris = a.getUris(content);
-		for(String uri : uris){
-			HttpClientStaticMethod.downLoadPictFromUri(uri,a.getDir());
-		}
+//		ImgUriAdapter a = new For1024ImgUriAdapter();
+//		List<String> uris = a.getUris(content);
+//		for(String uri : uris){
+//			HttpClientStaticMethod.downLoadPictFromUri(uri,a.getDir());
+//		}
 		System.out.println("完成");
 		
 //		if(null == content || content.isEmpty()){

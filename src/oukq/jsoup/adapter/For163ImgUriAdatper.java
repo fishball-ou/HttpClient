@@ -38,5 +38,7 @@ public class For163ImgUriAdatper implements ImgUriAdapter{
 	public String getDir() {
 		return pathFor163;
 	}
+ 
+	
 
 }

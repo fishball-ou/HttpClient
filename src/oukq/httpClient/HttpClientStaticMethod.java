@@ -1,9 +1,9 @@
 package oukq.httpClient;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,40 +21,43 @@ import oukq.tools.FileUtils;
 public class HttpClientStaticMethod {
 	@SuppressWarnings("deprecation")
 	/**
-	 * 根据地址获取页面源码
+	 * 
 	 */
 	public static String getHtmlByUrl(String Path){
+		StringBuffer html1 = new StringBuffer();
 		String html = null;
-		//地址必须是http://开头
+		//
 		if(!Path.startsWith("http://")){
 			Path = "http://" + Path;
 		}
-		//httpclient 对象
 		HttpClient httpClient = new DefaultHttpClient();
-		//Get方式请求
 		HttpGet httpGet = new HttpGet(Path);
-//	    HttpPost httpPost = new HttpPost(Path);
 		try {
 			HttpResponse httpResponse = httpClient.execute(httpGet);
-			//获取状态码
 			int resStatus = httpResponse.getStatusLine().getStatusCode();
 			if(HttpStatus.SC_OK == resStatus){
-				//获取结果entity
 				HttpEntity httpEntity = httpResponse.getEntity();
 				//toString
-				html = EntityUtils.toString(httpEntity);
+//				html = EntityUtils.toString(httpEntity);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(httpEntity.getContent(),"GB18030"));
+				String lineMessage;
+				while((lineMessage = reader.readLine())!=null){
+					html1.append(lineMessage);
+				}
+				reader.close();
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return html;
+//		System.out.println(html1.toString());
+		return html1.toString();
 	}
 	/**
 	 * 
 	 * @param uri 图片uri
-	 * @return filePath 图片本地地址
+	 * @return filePath 图片锟斤拷锟截碉拷址
 	 */
 	public static String downLoadPictFromUri(String uri,String dirPath){
 		String filePath = "";

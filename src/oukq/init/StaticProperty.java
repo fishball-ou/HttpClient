@@ -4,11 +4,12 @@ import java.io.File;
 
 public class StaticProperty {
 	
-	
-	//ÏÂÔØÍ¼Æ¬Ä¬ÈÏµØÖ·
+	//ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½
+	public static String PATH_FID_16 = "http://cl.man.lv/thread0806.php?fid=16&search=&page=";
+	//ï¿½ï¿½ï¿½ï¿½Í¼Æ¬Ä¬ï¿½Ïµï¿½Ö·
 	public static String PIC_DIR = "D:/test";
-	//Á¬½Ó³¬Ê±
-	public static int TIME_OUT = 5000;
+	//ï¿½ï¿½ï¿½Ó³ï¿½Ê±
+	public static int TIME_OUT = 50000;
 	
 	static{
 		File f = new File(PIC_DIR);
