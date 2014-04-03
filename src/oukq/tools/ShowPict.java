@@ -9,6 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class ShowPict extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6014691282504974678L;
+
 	public ShowPict(String Path){
 		Image img = null;
 		try{

@@ -40,7 +40,7 @@ public class For1024ImgUriAdapter implements ImgUriAdapter{
 //		for(String uri: urisList){
 //			System.out.println(uri);
 //		}
-		System.out.println(urisList.size());
+//		System.out.println(urisList.size());
 		return urisList;
 	}
 

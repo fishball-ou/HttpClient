@@ -1,5 +1,7 @@
 package oukq.httpClient.vo;
 
+import java.util.concurrent.CountDownLatch;
+
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -10,6 +12,8 @@ public class HttpRequestGetVo {
 	private String pic_dir;
 	
 	private int type;
+	
+	private CountDownLatch latch;
 	
 	public int getType() {
 		return type;
@@ -35,5 +39,11 @@ public class HttpRequestGetVo {
 	}
 	public void setPic_dir(String pic_dir) {
 		this.pic_dir = pic_dir;
+	}
+	public void setLatch(CountDownLatch latch) {
+		this.latch = latch;
+	}
+	public CountDownLatch getLatch() {
+		return latch;
 	}
 }

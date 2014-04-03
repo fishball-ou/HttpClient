@@ -10,6 +10,8 @@ public class StaticProperty {
 	public static String HOST_1024 = "http://cl.man.lv/";
 	//本地存放目录
 	public static String PIC_DIR = "D:/test";
+	
+	public static long PIC_MIN_SIZE = 20 * 1024;
 	//连接超时限制
 	public static int TIME_OUT = 50000;
 	

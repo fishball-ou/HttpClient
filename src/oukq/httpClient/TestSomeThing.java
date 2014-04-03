@@ -7,11 +7,12 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import oukq.init.StaticProperty;
 import oukq.tools.FileUtils;
 
 public class TestSomeThing {
 	public static void main(String[] args){
-		testRename();
+		testDelete(StaticProperty.PIC_DIR + "1024");
 	}
 	
 	public static void outputSupportImgType(){
@@ -35,5 +36,9 @@ public class TestSomeThing {
 		String fpath = "D://1024List.txt";
 		String newName = FileUtils.renameAppendTime(fpath);
 		System.out.println(newName);
+	}
+	
+	public static void testDelete(String Path){
+		FileUtils.deletedUselessFiles(Path);
 	}
 }

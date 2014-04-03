@@ -3,13 +3,13 @@ package oukq.tools;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import oukq.init.StaticProperty;
 
 public class FileUtils {
 	/**
@@ -60,6 +60,7 @@ public class FileUtils {
 				content.append(line);
 			}
 		} catch (Exception e) {
+			System.out.println("error in LoadFile");
 			e.printStackTrace();
 			System.out.println("文件找不到或读文件错误");
 			return null;
@@ -75,6 +76,7 @@ public class FileUtils {
 		try {
 			file.createNewFile();
 		} catch (IOException e1) {
+			System.out.println("error in saveFile");
 			e1.printStackTrace();
 			return null;
 		}
@@ -84,6 +86,7 @@ public class FileUtils {
 			fo.write(fileBytes);
 			fo.close();
 		} catch (Exception e) {
+			System.out.println("error in saveFile");
 			e.printStackTrace();
 			return null;
 		}
@@ -105,5 +108,32 @@ public class FileUtils {
 		StringBuffer newName = new StringBuffer();
 		newName.append(fileDir).append(fileName).append(".").append(d).append(fileSuffix);
 		return newName.toString();
+	}
+	
+	public static void deletedUselessFiles(String dir){
+		File dict = new File(dir);
+		if(!dict.exists()||!dict.isDirectory()){
+			return;
+		}
+		File[] files = dict.listFiles();
+		
+		for(int i=0;i<files.length;i++){
+			File f = files[i];
+			if(f.isFile()){
+				try {
+					FileInputStream fin = new FileInputStream(f);
+					long size = fin.available();
+					if(size <= StaticProperty.PIC_MIN_SIZE)
+					{
+						fin.close();
+						f.delete();
+					}
+				} catch (Exception e) {
+					System.out.println("error in deletedUselessFiles");
+					e.printStackTrace();
+				}
+				
+			}
+		}
 	}
 }
