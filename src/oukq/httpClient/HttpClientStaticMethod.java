@@ -10,8 +10,11 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
@@ -19,7 +22,6 @@ import oukq.init.StaticProperty;
 import oukq.tools.FileUtils;
 
 public class HttpClientStaticMethod {
-	@SuppressWarnings("deprecation")
 	/**
 	 * 
 	 */
@@ -30,10 +32,12 @@ public class HttpClientStaticMethod {
 		if(!Path.startsWith("http://")){
 			Path = "http://" + Path;
 		}
-		HttpClient httpClient = new DefaultHttpClient();
+		//过期方法
+//		HttpClient httpClient = new DefaultHttpClient();
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(Path);
 		try {
-			HttpResponse httpResponse = httpClient.execute(httpGet);
+			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 			int resStatus = httpResponse.getStatusLine().getStatusCode();
 			if(HttpStatus.SC_OK == resStatus){
 				HttpEntity httpEntity = httpResponse.getEntity();
@@ -45,6 +49,8 @@ public class HttpClientStaticMethod {
 					html1.append(lineMessage);
 				}
 				reader.close();
+				EntityUtils.consume(httpEntity);
+				httpResponse.close();
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -56,9 +62,9 @@ public class HttpClientStaticMethod {
 	}
 	/**
 	 * 
-	 * @param uri ͼƬuri
-	 * @return filePath ͼƬ���ص�ַ
-	 */
+	 * @param uri 
+	 * @return filePath  地址
+	 * 	 */
 	public static String downLoadPictFromUri(String uri,String dirPath){
 		String filePath = "";
 		HttpClient httpClient = new DefaultHttpClient();

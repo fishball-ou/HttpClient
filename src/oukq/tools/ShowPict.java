@@ -14,7 +14,7 @@ public class ShowPict extends JFrame{
 		try{
 			img = ImageIO.read(new File(Path));
 		}catch (Exception e) {
-			System.out.println("�޷���ȡͼƬ");
+			System.out.println("不能显示图片");
 		}
 		JLabel label = new JLabel(new ImageIcon(img));
 		add(label);
